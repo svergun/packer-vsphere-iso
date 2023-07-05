@@ -9,7 +9,7 @@ Create identical images for multiple platforms.
 
 ## VMware vSphere
 
-Builds an OVF template and upload it to your VMware Content Library.
+Builds an OVF template and upload it to a VMware Content Library.
 
 ### Supported OS
 
@@ -29,4 +29,4 @@ To pass vCenter password:
 packer build --var-file=rocky-linux.pkrvars.hcl --var-file=.sensitive/sensitive.pkrvars.hcl .
 ```
 
-Use `vsphere-iso/rocky-linux.pkrvars.hcl` file for customizing your ISO builging.
+Use `vsphere-iso/rocky-linux.pkrvars.hcl` file for customizing an ISO builging.

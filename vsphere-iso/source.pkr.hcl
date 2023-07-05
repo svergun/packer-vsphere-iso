@@ -5,7 +5,6 @@ source "vsphere-iso" "linux-server" {
   datacenter     = var.vmware_datacenter
   username       = var.vmware_username
   password       = var.vmware_password
-  # password            = "38Me89A_8Jg3Q8Cd"
   insecure_connection = var.vmware_insecure_connection
 
   # Hardware Configuration
