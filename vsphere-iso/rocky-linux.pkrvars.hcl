@@ -32,8 +32,8 @@ vmware_ssh_username = "admin"
 vmware_ssh_password = "admin"
 
 vmware_cl_name       = "vLIB-NAS-MAIN"
-vmware_cl_ovf_name   = "rocky-linux-server"
+vmware_cl_tmpl_name  = "rocky-linux"
 vmware_cl_cluster    = "vLAB-CL"
-vmware_cl_datastore  = "vDS-CL"
+vmware_cl_folder     = "vTEMPLATE"
+vmware_cl_datastore  = "vDS-NAS-MAIN-LUN1"
 vmware_cl_vm_destroy = true
-vmware_cl_ovf        = true

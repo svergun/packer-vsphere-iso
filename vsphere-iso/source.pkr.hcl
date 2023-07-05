@@ -54,11 +54,11 @@ source "vsphere-iso" "linux-server" {
   # Create a content library template
   content_library_destination {
     library     = var.vmware_cl_name
-    name        = local.vmware_cl_ovf_name
-    description = local.vmware_cl_ovf_descr
+    name        = local.vmware_cl_tmpl_name
+    description = local.vmware_cl_tmpl_descr
     cluster     = var.vmware_cl_cluster
+    folder      = var.vmware_cl_folder
     datastore   = var.vmware_cl_datastore
     destroy     = var.vmware_cl_vm_destroy
-    ovf         = var.vmware_cl_ovf
   }
 }
