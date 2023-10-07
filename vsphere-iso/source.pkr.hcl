@@ -47,11 +47,8 @@ source "vsphere-iso" "vsphere-build" {
   }
   # Kickstart Configuration
   http_directory = "http"
-  boot_command = [
-    "<tab>",
-    " text inst.ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/autoinstall-${var.os_distr_name}-${var.os_distr_version}.cfg",
-    "<enter><wait>"
-  ]
+  boot_command = [var.os_boot_command]
+
   # Communicator configuration
   ssh_username = var.vmware_ssh_username
   ssh_password = var.vmware_ssh_password

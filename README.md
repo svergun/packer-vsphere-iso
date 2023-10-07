@@ -73,6 +73,7 @@ The vSphere-ISO builder in Packer allows you to create VM templates for VMware v
 This repository supports building VM templates for the following operating system:
 
 - Rocky Linux 9
+- Debian Linux 12
 
 ### Handling Sensitive Data
 

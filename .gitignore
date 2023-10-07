@@ -17,3 +17,6 @@ crash.log
 
 # Temporary files and folders
 .delete
+
+# MacOS files
+.DS_Store

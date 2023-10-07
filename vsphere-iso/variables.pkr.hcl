@@ -8,6 +8,11 @@ variable "os_distr_name" {
   default = ""
 }
 
+variable "os_boot_command" {
+  type    = string
+  default = ""
+}
+
 variable "vmware_iso_url" {
   type    = string
   default = ""
