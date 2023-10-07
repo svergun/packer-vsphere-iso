@@ -3,22 +3,12 @@ variable "os_distr_version" {
   default = ""
 }
 
-variable "os_distr_family" {
+variable "os_distr_name" {
   type    = string
   default = ""
 }
 
-variable "os_iso_base_url" {
-  type    = string
-  default = ""
-}
-
-variable "os_iso_path" {
-  type    = string
-  default = ""
-}
-
-variable "os_iso_name" {
+variable "vmware_iso_url" {
   type    = string
   default = ""
 }
@@ -169,30 +159,12 @@ variable "vmware_cl_tmpl_descr" {
   default = ""
 }
 
-variable "vmware_cl_cluster" {
-  type    = string
-  default = ""
-}
-
-variable "vmware_cl_folder" {
-  type    = string
-  default = ""
-}
-
-variable "vmware_cl_datastore" {
-  type    = string
-  default = ""
-}
-
 variable "vmware_cl_vm_destroy" {
   type    = bool
   default = true
 }
 
-locals {
-  timestamp               = regex_replace(timestamp(), "[- TZ:]", "")
-  vmware_iso_url          = "${var.os_iso_base_url}/${var.os_distr_version}/${var.os_iso_path}/${var.os_iso_name}"
-  vmware_iso_url_checksum = "file:${var.os_iso_base_url}/${var.os_distr_version}/${var.os_iso_path}/${var.os_iso_name}.CHECKSUM"
-  vmware_cl_tmpl_name     = "${var.vmware_cl_tmpl_name}-${var.os_distr_version}-tmpl"
-  vmware_cl_tmpl_descr     = "Rocky Linux Minimal Installation, User: ${var.vmware_ssh_username}, Password: ${var.vmware_ssh_password}"
+variable "vmware_cl_ovf" {
+  type    = bool
+  default = true
 }

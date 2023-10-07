@@ -1,8 +1,8 @@
 build {
-  sources = ["source.vsphere-iso.linux-server"]
+  sources = ["source.vsphere-iso.vsphere-build"]
 
   provisioner "shell" {
-    script = "./scripts/${var.os_distr_family}-${var.os_distr_version}.sh"
+    script = "./scripts/${var.os_distr_name}-${var.os_distr_version}.sh"
   }
 
 }

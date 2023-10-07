@@ -1,10 +1,16 @@
-source "vsphere-iso" "linux-server" {
+locals {
+  timestamp            = regex_replace(timestamp(), "[- TZ:]", "")
+  vmware_cl_tmpl_name  = "${var.vmware_cl_tmpl_name}-${var.os_distr_version}-tmpl"
+  vmware_cl_tmpl_descr = "${var.vmware_cl_tmpl_descr}, User: ${var.vmware_ssh_username}, Password: ${var.vmware_ssh_password}"
+}
+
+source "vsphere-iso" "vsphere-build" {
   # Connection Configuration
-  vcenter_server = var.vmware_vcenter_server
-  resource_pool  = var.vmware_resource_pool
-  datacenter     = var.vmware_datacenter
-  username       = var.vmware_username
-  password       = var.vmware_password
+  vcenter_server      = var.vmware_vcenter_server
+  resource_pool       = var.vmware_resource_pool
+  datacenter          = var.vmware_datacenter
+  username            = var.vmware_username
+  password            = var.vmware_password
   insecure_connection = var.vmware_insecure_connection
 
   # Hardware Configuration
@@ -16,13 +22,13 @@ source "vsphere-iso" "linux-server" {
   RAM_hot_plug    = var.vmware_vm_ram_hot_plug
 
   # Location Configuration
-  vm_name   = "${var.vmware_vm_name}-${local.timestamp}"
+  vm_name   = "${var.vmware_vm_name}-${var.os_distr_name}-${var.os_distr_version}-${local.timestamp}"
   cluster   = var.vmware_vm_cluster
   datastore = var.vmware_vm_datastore
 
   # ISO Configuration
-  iso_url      = local.vmware_iso_url
-  iso_checksum = local.vmware_iso_url_checksum
+  iso_url      = var.vmware_iso_url
+  iso_checksum = var.vmware_iso_url_checksum
 
   # Create Configuration
   vm_version    = var.vmware_vm_version
@@ -43,7 +49,7 @@ source "vsphere-iso" "linux-server" {
   http_directory = "http"
   boot_command = [
     "<tab>",
-    " text inst.ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks-${var.os_distr_family}-${var.os_distr_version}.cfg",
+    " text inst.ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/autoinstall-${var.os_distr_name}-${var.os_distr_version}.cfg",
     "<enter><wait>"
   ]
   # Communicator configuration
@@ -56,9 +62,7 @@ source "vsphere-iso" "linux-server" {
     library     = var.vmware_cl_name
     name        = local.vmware_cl_tmpl_name
     description = local.vmware_cl_tmpl_descr
-    cluster     = var.vmware_cl_cluster
-    folder      = var.vmware_cl_folder
-    datastore   = var.vmware_cl_datastore
     destroy     = var.vmware_cl_vm_destroy
+    ovf         = var.vmware_cl_ovf
   }
 }
