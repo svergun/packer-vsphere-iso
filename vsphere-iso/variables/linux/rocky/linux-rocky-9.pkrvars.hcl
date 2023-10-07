@@ -15,3 +15,4 @@ vmware_iso_url_checksum = "file:https://download.rockylinux.org/pub/rocky/9/isos
 vmware_cl_tmpl_name  = "rocky-linux"
 vmware_cl_tmpl_descr = "Rocky Linux Minimal Installation"
 
+os_boot_command = "<tab> text inst.ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/autoinstall-rocky-linux-9.cfg <enter><wait>"
