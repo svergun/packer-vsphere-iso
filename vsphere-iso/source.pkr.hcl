@@ -47,11 +47,12 @@ source "vsphere-iso" "vsphere-build" {
   }
   # Kickstart Configuration
   http_directory = "http"
-  boot_command = [var.os_boot_command]
+  boot_command   = [var.os_boot_command]
 
   # Communicator configuration
   ssh_username = var.vmware_ssh_username
   ssh_password = var.vmware_ssh_password
+  ssh_timeout  = "30m"
   # Shutdown VM
   shutdown_command = "sudo /sbin/halt -h -p"
   # Create a content library template

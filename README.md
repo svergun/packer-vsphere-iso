@@ -74,6 +74,7 @@ This repository supports building VM templates for the following operating syste
 
 - Rocky Linux 9
 - Debian Linux 12
+- Ubuntu Server 23.04
 
 ### Handling Sensitive Data
 
