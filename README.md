@@ -76,6 +76,7 @@ This repository supports building VM templates for the following operating syste
 - Rocky Linux 9.3
 - Debian Linux 12.1.0
 - Debian Linux 12.2.0
+- Debian Linux 12.4.0
 - Ubuntu Server 23.04
 
 
