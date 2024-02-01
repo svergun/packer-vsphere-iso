@@ -1,4 +1,4 @@
-# Packer vSphere-ISO Builder Repository
+# Packer vSphere-ISO Builder
 
 Automate image builds to create identical virtual machine (VM) templates for VMware vSphere using the vSphere-ISO builder in Packer.
 
@@ -28,7 +28,7 @@ The vSphere-ISO builder in Packer allows you to create VM templates for VMware v
 
 ### vSphere-ISO Variable Files
 
-- `variables-vmware.auto.pkrvars.hcl` - this file contains the default values to connect to VMware vCenter, default values for the VM template and VMware Content Library.
+- `variables.auto.pkrvars.hcl` - this file contains the default values to connect to VMware vCenter, default values for the VM template and VMware Content Library.
   - `vmware_vcenter_server` - the IP address or hostname of the vCenter server.
   - `vmware_resource_pool` - the name of the resource pool to use for the VM template.
   - `vmware_datacenter` - the name of the datacenter to use for the VM template.
@@ -50,7 +50,7 @@ The vSphere-ISO builder in Packer allows you to create VM templates for VMware v
   - `vmware_cl_ovf` - whether to upload the VM template as an OVF package. Default is `true`.
 - `variables-sensitive.auto.pkrvars.hcl` - this file contains the sensitive data, such as the vCenter password, that should not be committed to the repository. This file is ignored by Git.
   - `vmware_password` - the password to use to connect to the vCenter server.
-- `variables/<OS>/<OS_DISTRUBUTIVE>/<OS>-<OS_DISTRIBUTIVE>-<OS_DISTRIBUTIVE_VERSION>.pkrvars.hcl` (e.g. `variables/linux/rocky/linux-rocky-9.pkr.hcl`) - this file contains the default values for the variables used to build an OS VM template.
+- `variables/<OS>/<OS_DISTRUBUTIVE>/<OS>-<OS_DISTRIBUTIVE>-<OS_DISTRIBUTIVE_VERSION>.pkrvars.hcl` (e.g. `variables/linux/rocky/linux-rocky-9.3.pkr.hcl`) - this file contains the default values for the variables used to build an OS VM template.
   - `vmware_vm_cpu` - the number of CPUs to use for the VM template.
   - `vmware_vm_cpu_cores` - the number of CPU cores to use for the VM template.
   - `vmware_vm_cpu_hot_plug` - whether to enable CPU hot plug for the VM template. Default is `true`.
@@ -66,13 +66,14 @@ The vSphere-ISO builder in Packer allows you to create VM templates for VMware v
   - `vmware_cl_tmpl_name` - the name of the VM template in the VMware Content Library.
   - `vmware_cl_tmpl_descr` - the description of the VM template in the VMware Content Library.
 - `scripts/<OS_DISTRUBUTIVE>-<OS>-<OS_DISTRIBUTIVE_VERSION>.sh` (e.g. `scripts/rocky-linux-9.sh`) - this file contains the scripts used to customize the OS VM template.
-- `http/autoinstall-<OS_DISTRUBUTIVE>-<OS>-<OS_DISTRIBUTIVE_VERSION>.cfg` (e.g. `http/autoinstall-rocky-linux-9.cfg`) - this file contains the Kickstart configuration used to automate the installation of the OS VM template.
+- `http/autoinstall-<OS_DISTRUBUTIVE>-<OS>-<OS_DISTRIBUTIVE_VERSION>.cfg` (e.g. `http/autoinstall-rocky-linux-9.3.cfg`) - this file contains the Kickstart configuration used to automate the installation of the OS VM template.
 
 ### Supported Operating Systems
 
 This repository supports building VM templates for the following operating system:
 
-- Rocky Linux 9
+- Rocky Linux 9.2
+- Rocky Linux 9.3
 - Debian Linux 12.1.0
 - Debian Linux 12.2.0
 - Ubuntu Server 23.04
@@ -99,7 +100,7 @@ Validate your configuration before building the VM template.
 Example:
 
 ```shell
-packer validate --var-file=variables/linux/rocky/linux-rocky-9.pkrvars.hcl .
+packer validate --var-file=variables/linux/rocky/linux-rocky-9.3.pkrvars.hcl .
 ```
 
 Build the VM template using Packer, specifying the necessary variable files.
@@ -107,7 +108,7 @@ Build the VM template using Packer, specifying the necessary variable files.
 Example:
 
 ```shell
-packer build --var-file=variables/linux/rocky/linux-rocky-9.pkrvars.hcl .
+packer build --var-file=variables/linux/rocky/linux-rocky-9.3.pkrvars.hcl .
 ```
 
 ## Upload Process
