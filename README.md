@@ -77,7 +77,8 @@ This repository supports building VM templates for the following operating syste
 - Debian Linux 12.1.0
 - Debian Linux 12.2.0
 - Debian Linux 12.4.0
-- Ubuntu Server 23.04
+- Ubuntu Server 22.04.3
+- Ubuntu Server 23.10
 
 
 ### Handling Sensitive Data
