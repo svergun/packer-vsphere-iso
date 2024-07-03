@@ -53,6 +53,7 @@ source "vsphere-iso" "vsphere-build" {
   ssh_username = var.vmware_ssh_username
   ssh_password = var.vmware_ssh_password
   ssh_timeout  = "30m"
+  ssh_handshake_attempts = 100
   # Shutdown VM
   shutdown_command = "sudo /sbin/halt -h -p"
   # Create a content library template
