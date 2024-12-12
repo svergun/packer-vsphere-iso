@@ -11,6 +11,7 @@ os_distr_version        = "22.04.3"
 os_distr_name           = "ubuntu-linux"
 vmware_iso_url          = "http://mirror.cogentco.com/pub/linux/ubuntu-releases/22.04/ubuntu-22.04.3-live-server-amd64.iso"
 vmware_iso_url_checksum = "file:http://mirror.cogentco.com/pub/linux/ubuntu-releases/22.04/SHA256SUMS"
+vmware_iso_cleanup_remote_cache = true
 
 vmware_cl_tmpl_name  = "ubuntu-linux"
 vmware_cl_tmpl_descr = "Ubuntu Linux Server 22.04.3 Standard Installation"

@@ -11,6 +11,7 @@ os_distr_version        = "12.2.0"
 os_distr_name           = "debian-linux"
 vmware_iso_url          = "http://cdimage.debian.org/mirror/cdimage/archive/12.2.0/amd64/iso-cd/debian-12.2.0-amd64-netinst.iso"
 vmware_iso_url_checksum = "file:http://cdimage.debian.org/mirror/cdimage/archive/12.2.0/amd64/iso-cd/SHA256SUMS"
+vmware_iso_cleanup_remote_cache = true
 
 vmware_cl_tmpl_name  = "debian-linux"
 vmware_cl_tmpl_descr = "Debian Linux 12.2.0 Minimal Installation"
