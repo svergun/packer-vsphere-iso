@@ -37,7 +37,7 @@ The vSphere-ISO builder in Packer allows you to create VM templates for VMware v
   - `vmware_vm_name` - the name of the VM template. Default is `packer`. The VM template will be named like this: `"${var.vmware_vm_name}-${var.os_distr_name}-${var.os_distr_version}-${local.timestamp}"` (e.g. `packer-rocky-linux-9-20231007161411`)
   - `vmware_vm_cluster` - the name of the cluster to use for the VM template.
   - `vmware_vm_datastore` - the name of the datastore to use for the VM template.
-  - `vmware_vm_version` - the VM hardware version to use for the VM template. Default is `20`.
+  - `vmware_vm_version` - the VM hardware version to use for the VM template. Default is `21` - ESXi 8.0 U2 (8.0.2), Fusion 13.5, Workstation Pro 17.5, Workstation Player 17.5.
   - `vmware_vm_destroy` - if set to true, the VM will be destroyed after the builder completes. Default is `false`.
   - `vmware_vm_network` - the name of the network to use for the VM template.
   - `vmware_vm_network_card` - the name of the network card to use for the VM template. Default is `vmxnet3`.
@@ -74,10 +74,12 @@ This repository supports building VM templates for the following operating syste
 
 - Rocky Linux 9.2
 - Rocky Linux 9.3
+- Rocky Linux 9.4
 - Debian Linux 12.1.0
 - Debian Linux 12.2.0
 - Debian Linux 12.4.0
-- Ubuntu Server 23.04
+- Ubuntu Server 22.04.3
+- Ubuntu Server 23.10
 
 
 ### Handling Sensitive Data

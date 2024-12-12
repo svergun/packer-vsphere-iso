@@ -101,7 +101,7 @@ variable "vmware_vm_datastore" {
 
 variable "vmware_vm_version" {
   type    = number
-  default = 20
+  default = 21
 }
 
 variable "vmware_vm_guest_os_type" {
