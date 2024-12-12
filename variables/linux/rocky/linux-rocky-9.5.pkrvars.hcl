@@ -7,12 +7,12 @@ vmware_vm_ram_hot_plug    = true
 vmware_vm_disk_size       = 10240
 vmware_vm_guest_os_type   = "centos9_64Guest"
 
-os_distr_version        = "9.3"
+os_distr_version        = "9.5"
 os_distr_name           = "rocky-linux"
-vmware_iso_url          = "https://download.rockylinux.org/pub/rocky/9.3/isos/x86_64/Rocky-9.3-x86_64-minimal.iso"
-vmware_iso_url_checksum = "file:https://download.rockylinux.org/pub/rocky/9.3/isos/x86_64/CHECKSUM"
+vmware_iso_url          = "https://download.rockylinux.org/pub/rocky/9.5/isos/x86_64/Rocky-9.5-x86_64-minimal.iso"
+vmware_iso_url_checksum = "file:https://download.rockylinux.org/pub/rocky/9.5/isos/x86_64/CHECKSUM"
 
 vmware_cl_tmpl_name  = "rocky-linux"
 vmware_cl_tmpl_descr = "Rocky Linux Minimal Installation"
 
-os_boot_command = "<tab> text inst.ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/autoinstall-rocky-linux-9.3.cfg <enter><wait>"
+os_boot_command = "<tab> text inst.ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/autoinstall-rocky-linux-9.5.cfg <enter><wait>"
