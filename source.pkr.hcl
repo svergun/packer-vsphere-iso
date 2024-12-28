@@ -1,7 +1,7 @@
 locals {
   timestamp            = regex_replace(timestamp(), "[- TZ:]", "")
   vmware_cl_tmpl_name  = "${var.vmware_cl_tmpl_name}-${var.os_distr_version}-tmpl"
-  vmware_cl_tmpl_descr = "${var.vmware_cl_tmpl_descr}, User: ${var.vmware_ssh_username}, Password: ${var.vmware_ssh_password}"
+  vmware_cl_tmpl_descr = "${var.vmware_cl_tmpl_descr}, Version: ${var.os_distr_version}, User: ${var.vmware_ssh_username}, Password: ${var.vmware_ssh_password}"
 }
 
 source "vsphere-iso" "vsphere-build" {
@@ -50,9 +50,9 @@ source "vsphere-iso" "vsphere-build" {
   boot_command   = [var.os_boot_command]
 
   # Communicator configuration
-  ssh_username = var.vmware_ssh_username
-  ssh_password = var.vmware_ssh_password
-  ssh_timeout  = "30m"
+  ssh_username           = var.vmware_ssh_username
+  ssh_password           = var.vmware_ssh_password
+  ssh_timeout            = "30m"
   ssh_handshake_attempts = 100
   # Shutdown VM
   shutdown_command = "sudo /sbin/halt -h -p"

@@ -1,0 +1,38 @@
+#cloud-config
+
+autoinstall:
+  version: 1
+  refresh-installer:
+    update: true
+  source:
+    id: ubuntu-server-minimal
+  identity:
+    hostname: ubuntu
+    username: packer
+    realname: 'Packer Automation'
+    password: '$6$8L4NvT27UWS80jRT$XoHNQjlh3NpJSsk0ScJNu29.UsyR2u1DbMH26tYGezEU997VqfZ/23o6UMZ5mtIxfoHwpkn81T04pbeKEBkCC1'
+    # password: packer
+  ssh:
+    install-server: true
+    allow-pw: true
+  apt:
+    mirror-selection:
+      primary:
+        - country-mirror
+        - uri: http://archive.ubuntu.com/ubuntu
+      geoip: true
+  packages:
+    - open-vm-tools
+  storage:
+    layout:
+      name: lvm
+      sizing-policy: scaled
+      # The scaling system is currently as follows:
+      # Less than 10 GiB: use all remaining space for root filesystem
+      # Between 10-20 GiB: 10 GiB root filesystem
+      # Between 20-200 GiB: use half of remaining space for root filesystem
+      # Greater than 200 GiB: 100 GiB root filesystem
+  timezone: 'Etc/UTC'
+  late-commands:
+    - echo 'packer ALL=(ALL) NOPASSWD:ALL' > /target/etc/sudoers.d/packer
+    - curtin in-target --target=/target -- chmod 440 /etc/sudoers.d/packer

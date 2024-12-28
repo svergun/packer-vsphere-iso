@@ -50,7 +50,7 @@ The vSphere-ISO builder in Packer allows you to create VM templates for VMware v
   - `vmware_cl_ovf` - whether to upload the VM template as an OVF package. Default is `true`.
 - `variables-sensitive.auto.pkrvars.hcl` - this file contains the sensitive data, such as the vCenter password, that should not be committed to the repository. This file is ignored by Git.
   - `vmware_password` - the password to use to connect to the vCenter server.
-- `variables/<OS>/<OS_DISTRUBUTIVE>/<OS>-<OS_DISTRIBUTIVE>-<OS_DISTRIBUTIVE_VERSION>.pkrvars.hcl` (e.g. `variables/linux/rocky/linux-rocky-9.3.pkr.hcl`) - this file contains the default values for the variables used to build an OS VM template.
+- `variables/<OS>-<OS_DISTRIBUTIVE>.pkrvars.hcl` (e.g. `variables/linux-rocky.pkr.hcl`) - this file contains the default values for the variables used to build an OS VM template.
   - `vmware_vm_cpu` - the number of CPUs to use for the VM template.
   - `vmware_vm_cpu_cores` - the number of CPU cores to use for the VM template.
   - `vmware_vm_cpu_hot_plug` - whether to enable CPU hot plug for the VM template. Default is `true`.
@@ -65,21 +65,18 @@ The vSphere-ISO builder in Packer allows you to create VM templates for VMware v
   - `vmware_iso_url_checksum` - the checksum of the ISO image of the operating system distribution.
   - `vmware_cl_tmpl_name` - the name of the VM template in the VMware Content Library.
   - `vmware_cl_tmpl_descr` - the description of the VM template in the VMware Content Library.
-- `scripts/<OS_DISTRUBUTIVE>-<OS>-<OS_DISTRIBUTIVE_VERSION>.sh` (e.g. `scripts/rocky-linux-9.sh`) - this file contains the scripts used to customize the OS VM template.
-- `http/autoinstall-<OS_DISTRUBUTIVE>-<OS>-<OS_DISTRIBUTIVE_VERSION>.cfg` (e.g. `http/autoinstall-rocky-linux-9.3.cfg`) - this file contains the Kickstart configuration used to automate the installation of the OS VM template.
+- `scripts/<OS>-<OS_DISTRIBUTIVE>.sh` (e.g. `scripts/rocky-linux.sh`) - this file contains the scripts used to customize the OS VM template.
+- `http/autoinstall-<OS_DISTRUBUTIVE>.cfg` (e.g. `http/autoinstall-rocky-server.cfg`) - this file contains the Kickstart configuration used to automate the installation of the OS VM template.
 
 ### Supported Operating Systems
 
 This repository supports building VM templates for the following operating system:
 
-- Rocky Linux 9.4
-- Rocky Linux 9.5
-- Debian Linux 12.1.0
-- Debian Linux 12.2.0
-- Debian Linux 12.4.0
-- Ubuntu Server 22.04.3
-- Ubuntu Server 23.10
-
+- Rocky Linux 9 Latest
+- Debian Linux 11.11.0
+- Debian Linux Current
+- Ubuntu Server 22.04 Latest
+- Ubuntu Server 24.04 Latest
 
 ### Handling Sensitive Data
 
@@ -97,20 +94,35 @@ Replace `your-vcenter-password` with your actual vCenter password.
 
 ## Build Process
 
-Validate your configuration before building the VM template.
+Run `./shell/build/build-linux.sh` to build a VM template for a Linux distribution. Follow the prompts to enter the required information.
 
-Example:
-
-```shell
-packer validate --var-file=variables/linux/rocky/linux-rocky-9.3.pkrvars.hcl .
-```
-
-Build the VM template using Packer, specifying the necessary variable files.
-
-Example:
+Example output:
 
 ```shell
-packer build --var-file=variables/linux/rocky/linux-rocky-9.3.pkrvars.hcl .
+./shell/build/build-linux.sh
+
+Choose Distributive:
+1) debian
+2) rocky
+3) ubuntu-server
+#? 3
+
+Choose Version:
+1) 22.04
+2) 24.04
+#? 2
+
+Get Current Ubuntu 24.04 Linux Version:
+[OK] Current Version: 24.04.1
+
+Validate Packer Configuration:
+packer validate -var os_distr_version="24.04" -var vmware_iso_url="https://releases.ubuntu.com/24.04/ubuntu-24.04.1-live-server-amd64.iso" -var vmware_iso_url_checksum="file:https://releases.ubuntu.com/24.04/SHA256SUMS" -var os_distr_name="linux-ubuntu-server" -var vmware_cl_tmpl_name="linux-ubuntu-server" -var-file=./shell/build/../../variables/linux-ubuntu-server.pkrvars.hcl .
+The configuration is valid.
+
+Build Packer Image:
+packer build -var os_distr_version="24.04" -var vmware_iso_url="https://releases.ubuntu.com/24.04/ubuntu-24.04.1-live-server-amd64.iso" -var vmware_iso_url_checksum="file:https://releases.ubuntu.com/24.04/SHA256SUMS" -var os_distr_name="linux-ubuntu-server" -var vmware_cl_tmpl_name="linux-ubuntu-server" -var-file=./shell/build/../../variables/linux-ubuntu-server.pkrvars.hcl .
+
+<SKIPPED>
 ```
 
 ## Upload Process
