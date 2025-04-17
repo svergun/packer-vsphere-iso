@@ -7,6 +7,7 @@ DISTR_LIST=("debian" "rocky" "ubuntu-server")
 
 # source functions
 source $BASEDIR/../functions/rich-text.sh
+source $BASEDIR/../vars/distr-linux
 
 # Functions
 # ---------------------------------------
@@ -44,7 +45,7 @@ done
 case $DISTR in
   debian)
     # set distributive versions
-    DISTR_VERSIONS=("11.11.0" "current")
+    DISTR_VERSIONS=($DEBIAN_VERSIONS)
     set_distr_version
     print_title "Get Current Debian Version:"
     # set base distributive url
@@ -70,7 +71,7 @@ case $DISTR in
     ;;
   rocky)
     # set distributive versions
-    DISTR_VERSIONS=("9-latest")
+    DISTR_VERSIONS=($ROCKY_VERSIONS)
     set_distr_version
     print_title "Get Current Rocky ${DISTR_VERSION%-latest} Linux Version:"
     # set base distributive url
@@ -90,7 +91,7 @@ case $DISTR in
     ;;
   ubuntu-server)
     # set distributive versions
-    DISTR_VERSIONS=("22.04" "24.04")
+    DISTR_VERSIONS=($UBUNTU_VERSIONS)
     set_distr_version
     print_title "Get Current Ubuntu ${DISTR_VERSION%-latest} Linux Version:"
     # set base distributive url
