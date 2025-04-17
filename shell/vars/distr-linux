@@ -1,0 +1,6 @@
+# -*- mode: shell -*-
+# vim: set filetype=sh :
+
+DEBIAN_VERSIONS="11.11.0 current"
+ROCKY_VERSIONS="9-latest"
+UBUNTU_VERSIONS="22.04 24.04 25.04"
