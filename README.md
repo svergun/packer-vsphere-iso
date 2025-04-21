@@ -103,114 +103,16 @@ Run `./build/build-linux.sh` to build a VM template for a Linux distribution. Fo
 - `-s`, `--skip-build` - Skip the Packer build step (validate only)
 - `-d`, `--debug` - Enable debug mode (print all commands)
 
-Usage Example (build):
+### Run build script with building the VM template
 
-```shell
-./build/build-linux.sh
-Sourcing files...
-./build/functions/distr-linux.sh
-./build/functions/packer-cmd.sh
-./build/functions/text-enrich.sh
-./build/vars/distr-linux
+<p align="center">
+  <img src="docs/linux_build.gif" alt="Packer Build">
 
-Checking required packages...
-[OK] curl
-[OK] packer
+### Run build script without building the VM template
 
-Choose Distributive:
-1) debian
-2) rocky
-3) ubuntu-server
-#? 1
-
-Choose Version:
-1) 11.11.0
-2) current
-#? 2
-
-Fetching ISO URLs for debian current
-[OK] Current Version: 12.10.0
-[OK] Distributive ISO URL is valid: https://cdimage.debian.org/mirror/cdimage/release/current/amd64/iso-cd/debian-12.10.0-amd64-netinst.iso
-[OK] Distributive ISO Checksum URL is valid: https://cdimage.debian.org/mirror/cdimage/release/current/amd64/iso-cd/SHA256SUMS
-
-Executing Packer Command: validate
-packer validate \
--var os_distr_version="current" \
--var vmware_iso_url="https://cdimage.debian.org/mirror/cdimage/release/current/amd64/iso-cd/debian-12.10.0-amd64-netinst.iso" \
--var vmware_iso_url_checksum="file:https://cdimage.debian.org/mirror/cdimage/release/current/amd64/iso-cd/SHA256SUMS" \
--var os_distr_name="linux-debian" \
--var vmware_cl_tmpl_name="linux-debian" \
--var-file=./build/../variables/linux-debian.pkrvars.hcl \
-.
-The configuration is valid.
-[OK] Packer validate command executed successfully.
-
-Executing Packer Command: build
-packer build \
--var os_distr_version="current" \
--var vmware_iso_url="https://cdimage.debian.org/mirror/cdimage/release/current/amd64/iso-cd/debian-12.10.0-amd64-netinst.iso" \
--var vmware_iso_url_checksum="file:https://cdimage.debian.org/mirror/cdimage/release/current/amd64/iso-cd/SHA256SUMS" \
--var os_distr_name="linux-debian" \
--var vmware_cl_tmpl_name="linux-debian" \
--var-file=./build/../variables/linux-debian.pkrvars.hcl \
-.
-vsphere-iso.vsphere-build: output will be in this color.
-
-==> vsphere-iso.vsphere-build: Retrieving ISO
-
-<SKIPPED>
-
-Build 'vsphere-iso.vsphere-build' finished after 7 minutes 18 seconds.
-
-==> Wait completed after 7 minutes 18 seconds
-
-==> Builds finished. The artifacts of successful builds are:
---> vsphere-iso.vsphere-build: packer-linux-debian-current-20250421185443
-[OK] Packer build command executed successfully.
-```
-
-Usage Example (validate only):
-
-```shell
-./build/build-linux.sh -s
-Sourcing files...
-./build/functions/distr-linux.sh
-./build/functions/packer-cmd.sh
-./build/functions/text-enrich.sh
-./build/vars/distr-linux
-
-Checking required packages...
-[OK] curl
-[OK] packer
-
-Choose Distributive:
-1) debian
-2) rocky
-3) ubuntu-server
-#? 1
-
-Choose Version:
-1) 11.11.0
-2) current
-#? 1
-
-Fetching ISO URLs for debian 11.11.0
-[OK] Distributive ISO URL is valid: https://cdimage.debian.org/mirror/cdimage/archive/11.11.0/amd64/iso-cd/debian-11.11.0-amd64-netinst.iso
-[OK] Distributive ISO Checksum URL is valid: https://cdimage.debian.org/mirror/cdimage/archive/11.11.0/amd64/iso-cd/SHA256SUMS
-
-Executing Packer Command: validate
-packer validate \
--var os_distr_version="11.11.0" \
--var vmware_iso_url="https://cdimage.debian.org/mirror/cdimage/archive/11.11.0/amd64/iso-cd/debian-11.11.0-amd64-netinst.iso" \
--var vmware_iso_url_checksum="file:https://cdimage.debian.org/mirror/cdimage/archive/11.11.0/amd64/iso-cd/SHA256SUMS" \
--var os_distr_name="linux-debian" \
--var vmware_cl_tmpl_name="linux-debian" \
--var-file=./build/../variables/linux-debian.pkrvars.hcl \
-.
-The configuration is valid.
-[OK] Packer validate command executed successfully.
-[INFO] Skip build option is set. Skipping packer build.
-```
+<p align="center">
+  <img src="docs/linux_build_skip.gif" alt="Packer Build Skip">
+</p>
 
 ## Upload Process
 

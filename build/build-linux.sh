@@ -3,6 +3,18 @@
 # -*- mode: shell -*-
 # vim: set filetype=sh :
 
+# SET SCRIPT VARIABLES
+#--------------------------------------------------
+# set base directory
+BASEDIR=$(dirname "$0")
+# set packer to build by default
+PACKER_BUILD="true"
+# set source directoris list
+SOURCE_FOLDERS=(
+  "functions"
+  "vars"
+)
+
 # PARSE COMMAND LINE ARGUMENTS
 #--------------------------------------------------
 while [[ $# -gt 0 ]]; do
@@ -24,17 +36,6 @@ while [[ $# -gt 0 ]]; do
       exit 1 ;;
   esac
 done
-
-
-# SET SCRIPT VARIABLES
-#--------------------------------------------------
-# set base directory
-BASEDIR=$(dirname "$0")
-# set source directoris list
-SOURCE_FOLDERS=(
-  "functions"
-  "vars"
-)
 
 # ERROR HANDLING
 #--------------------------------------------------
