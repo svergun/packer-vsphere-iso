@@ -10,6 +10,7 @@ To use this repository, ensure you have the following prerequisites:
 
 - **VMware ESXi:** Version 8 or later installed and configured. It was developed and tested with VMware ESXi 8.0 and higher.
 - **Packer:** Version 1.9 or higher installed. It was developed and tested with Packer 1.9.0 and higher.
+- **Curl:** Installed on your system. It is used to fetch ISO URLs and checksums.
 
 ## Manage Packer Plugins
 
@@ -68,7 +69,7 @@ The vSphere-ISO builder in Packer allows you to create VM templates for VMware v
 - `scripts/<OS>-<OS_DISTRIBUTIVE>.sh` (e.g. `scripts/rocky-linux.sh`) - this file contains the scripts used to customize the OS VM template.
 - `http/autoinstall-<OS_DISTRUBUTIVE>.cfg` (e.g. `http/autoinstall-rocky-server.cfg`) - this file contains the Kickstart configuration used to automate the installation of the OS VM template.
 
-### Supported Operating Systems
+### Supported OS and Versions
 
 This repository supports building VM templates for the following operating system:
 
@@ -92,38 +93,123 @@ To securely pass your vCenter password to Packer, follow these steps:
 
 Replace `your-vcenter-password` with your actual vCenter password.
 
-
 ## Build Process
 
-Run `./shell/build/build-linux.sh` to build a VM template for a Linux distribution. Follow the prompts to enter the required information.
+Run `./build/build-linux.sh` to build a VM template for a Linux distribution. Follow the prompts to enter the required information.
 
-Example output:
+### Supported Options
+
+- `-h`, `--help` - Show help message and exit
+- `-s`, `--skip-build` - Skip the Packer build step (validate only)
+- `-d`, `--debug` - Enable debug mode (print all commands)
+
+Usage Example (build):
 
 ```shell
-./shell/build/build-linux.sh
+./build/build-linux.sh
+Sourcing files...
+./build/functions/distr-linux.sh
+./build/functions/packer-cmd.sh
+./build/functions/text-enrich.sh
+./build/vars/distr-linux
+
+Checking required packages...
+[OK] curl
+[OK] packer
 
 Choose Distributive:
 1) debian
 2) rocky
 3) ubuntu-server
-#? 3
+#? 1
 
 Choose Version:
-1) 22.04
-2) 24.04
+1) 11.11.0
+2) current
 #? 2
 
-Get Current Ubuntu 24.04 Linux Version:
-[OK] Current Version: 24.04.1
+Fetching ISO URLs for debian current
+[OK] Current Version: 12.10.0
+[OK] Distributive ISO URL is valid: https://cdimage.debian.org/mirror/cdimage/release/current/amd64/iso-cd/debian-12.10.0-amd64-netinst.iso
+[OK] Distributive ISO Checksum URL is valid: https://cdimage.debian.org/mirror/cdimage/release/current/amd64/iso-cd/SHA256SUMS
 
-Validate Packer Configuration:
-packer validate -var os_distr_version="24.04" -var vmware_iso_url="https://releases.ubuntu.com/24.04/ubuntu-24.04.1-live-server-amd64.iso" -var vmware_iso_url_checksum="file:https://releases.ubuntu.com/24.04/SHA256SUMS" -var os_distr_name="linux-ubuntu-server" -var vmware_cl_tmpl_name="linux-ubuntu-server" -var-file=./shell/build/../../variables/linux-ubuntu-server.pkrvars.hcl .
+Executing Packer Command: validate
+packer validate \
+-var os_distr_version="current" \
+-var vmware_iso_url="https://cdimage.debian.org/mirror/cdimage/release/current/amd64/iso-cd/debian-12.10.0-amd64-netinst.iso" \
+-var vmware_iso_url_checksum="file:https://cdimage.debian.org/mirror/cdimage/release/current/amd64/iso-cd/SHA256SUMS" \
+-var os_distr_name="linux-debian" \
+-var vmware_cl_tmpl_name="linux-debian" \
+-var-file=./build/../variables/linux-debian.pkrvars.hcl \
+.
 The configuration is valid.
+[OK] Packer validate command executed successfully.
 
-Build Packer Image:
-packer build -var os_distr_version="24.04" -var vmware_iso_url="https://releases.ubuntu.com/24.04/ubuntu-24.04.1-live-server-amd64.iso" -var vmware_iso_url_checksum="file:https://releases.ubuntu.com/24.04/SHA256SUMS" -var os_distr_name="linux-ubuntu-server" -var vmware_cl_tmpl_name="linux-ubuntu-server" -var-file=./shell/build/../../variables/linux-ubuntu-server.pkrvars.hcl .
+Executing Packer Command: build
+packer build \
+-var os_distr_version="current" \
+-var vmware_iso_url="https://cdimage.debian.org/mirror/cdimage/release/current/amd64/iso-cd/debian-12.10.0-amd64-netinst.iso" \
+-var vmware_iso_url_checksum="file:https://cdimage.debian.org/mirror/cdimage/release/current/amd64/iso-cd/SHA256SUMS" \
+-var os_distr_name="linux-debian" \
+-var vmware_cl_tmpl_name="linux-debian" \
+-var-file=./build/../variables/linux-debian.pkrvars.hcl \
+.
+vsphere-iso.vsphere-build: output will be in this color.
+
+==> vsphere-iso.vsphere-build: Retrieving ISO
 
 <SKIPPED>
+
+Build 'vsphere-iso.vsphere-build' finished after 7 minutes 18 seconds.
+
+==> Wait completed after 7 minutes 18 seconds
+
+==> Builds finished. The artifacts of successful builds are:
+--> vsphere-iso.vsphere-build: packer-linux-debian-current-20250421185443
+[OK] Packer build command executed successfully.
+```
+
+Usage Example (validate only):
+
+```shell
+./build/build-linux.sh -s
+Sourcing files...
+./build/functions/distr-linux.sh
+./build/functions/packer-cmd.sh
+./build/functions/text-enrich.sh
+./build/vars/distr-linux
+
+Checking required packages...
+[OK] curl
+[OK] packer
+
+Choose Distributive:
+1) debian
+2) rocky
+3) ubuntu-server
+#? 1
+
+Choose Version:
+1) 11.11.0
+2) current
+#? 1
+
+Fetching ISO URLs for debian 11.11.0
+[OK] Distributive ISO URL is valid: https://cdimage.debian.org/mirror/cdimage/archive/11.11.0/amd64/iso-cd/debian-11.11.0-amd64-netinst.iso
+[OK] Distributive ISO Checksum URL is valid: https://cdimage.debian.org/mirror/cdimage/archive/11.11.0/amd64/iso-cd/SHA256SUMS
+
+Executing Packer Command: validate
+packer validate \
+-var os_distr_version="11.11.0" \
+-var vmware_iso_url="https://cdimage.debian.org/mirror/cdimage/archive/11.11.0/amd64/iso-cd/debian-11.11.0-amd64-netinst.iso" \
+-var vmware_iso_url_checksum="file:https://cdimage.debian.org/mirror/cdimage/archive/11.11.0/amd64/iso-cd/SHA256SUMS" \
+-var os_distr_name="linux-debian" \
+-var vmware_cl_tmpl_name="linux-debian" \
+-var-file=./build/../variables/linux-debian.pkrvars.hcl \
+.
+The configuration is valid.
+[OK] Packer validate command executed successfully.
+[INFO] Skip build option is set. Skipping packer build.
 ```
 
 ## Upload Process

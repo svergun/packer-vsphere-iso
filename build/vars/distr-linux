@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+# -*- mode: shell -*-
+# vim: set filetype=sh :
+
+# Required packages
+REQUIRED_PACKAGES=(
+  "curl"
+  "packer"
+)
+
+# Linux distributive list
+DISTR_LIST=("debian" "rocky" "ubuntu-server")
+
+# Linux distributive versions
+declare -A DISTR_VERSIONS
+DISTR_VERSIONS=(
+  ["debian"]="11.11.0 current"
+  ["rocky"]="9-latest"
+  ["ubuntu-server"]="22.04 24.04 25.04"
+)
+
+# Linux disctributive base URL
+declare -A DISTR_BASE_URL
+DISTR_BASE_URL=(
+  ["debian"]="https://cdimage.debian.org/mirror/cdimage"
+  ["rocky"]="https://download.rockylinux.org/pub/rocky"
+  ["ubuntu-server"]="https://releases.ubuntu.com"
+)
