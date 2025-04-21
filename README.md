@@ -14,7 +14,7 @@ To use this repository, ensure you have the following prerequisites:
 
 ## Manage Packer Plugins
 
-Packer plugins are managed using the `packer init` command. Describe the plugins you want to use in a `requirements.pkr.hcl` file and run `packer init` to install them. To upgrade installed  plugins after changing a pluging version in the file, run `packer init -upgrade .`.
+Packer plugins are managed using the `packer init` command. Describe the plugins you want to use in a `requirements.pkr.hcl` file and run `packer init` to install them. To upgrade installed plugins after changing a plugin version in the file, run `packer init -upgrade .`.
 
 Example:
 
